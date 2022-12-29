@@ -41,7 +41,7 @@ const parseDevPost = async () => {
     return res.data
 }
 
-cron.schedule('*/3 * * * *', async() =>{
+cron.schedule(`*/${process.env.MAIL_PERIOD} * * * *`, async() =>{
     let data = await parseDevPost();
     data.hackathons.forEach(async ({url, id}) => {
         if(cache.has(id)){
