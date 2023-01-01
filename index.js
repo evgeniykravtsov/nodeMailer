@@ -3,8 +3,9 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const Redis = require("ioredis");
+
 require('dotenv').config()
-import Redis from 'ioredis'
 
 let cache = [17075, 16740, 16741, 16956, 16724, 17056, 16945, 17049, 16995];
 
