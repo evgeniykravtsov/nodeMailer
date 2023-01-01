@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: cURL request
         # Hit the webhook endpoint to rebuild  from the "main" branch
+        run: npm i
         run: node index.js
         env:
           SECRET_TEST_MESSAGE: ${{ secrets.SECRET_TEST_MESSAGE }}
