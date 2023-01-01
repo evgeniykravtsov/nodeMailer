@@ -45,6 +45,10 @@ async function main() {
     let data = await parseDevPost();
     await redis.sadd("hackathons-id-cache", cache);
 
+    await redis.get("hackathons-id-cache", function(cache, reply) {
+        console.log(cache, "<<<<<hackathons-id-cache");
+      });
+    
     data.hackathons.forEach(async ({url, id}) => {
         const fromCache = await redis.sismember("hackathons-id-cache", id);
 
