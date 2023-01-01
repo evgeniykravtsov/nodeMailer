@@ -5,13 +5,17 @@ on:
   schedule:
     # Runs "at minute 55 past every hour" (see https://crontab.guru)
     - cron: '*/3 * * * *'
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
   build:
-    name: Trigger Site Rebuild
+
     runs-on: ubuntu-latest
     steps:
-      - run: npm ci
-      - run: node index.js
-        env:
-          SECRET_TEST_MESSAGE: ${{ secrets.SECRET_TEST_MESSAGE }}
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: node index.js
