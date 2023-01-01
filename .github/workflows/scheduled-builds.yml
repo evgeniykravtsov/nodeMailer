@@ -11,7 +11,7 @@ jobs:
     name: Trigger Site Rebuild
     runs-on: ubuntu-latest
     steps:
-      - run: npm i
+      - run: npm ci
       - run: node index.js
         env:
           SECRET_TEST_MESSAGE: ${{ secrets.SECRET_TEST_MESSAGE }}
