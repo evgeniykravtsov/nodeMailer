@@ -8,14 +8,11 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
+    name: Trigger Site Rebuild
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: npm install
-      - name: Run script
+      - name: cURL request
+        # Hit the webhook endpoint to rebuild  from the "main" branch
         run: node index.js
         env:
           SECRET_TEST_MESSAGE: ${{ secrets.SECRET_TEST_MESSAGE }}
