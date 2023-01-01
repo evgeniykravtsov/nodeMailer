@@ -6,7 +6,7 @@ const Redis = require("ioredis");
 require('dotenv').config()
 
 let cache = [17075, 16740, 16741, 16956, 16724, 17056, 16945, 17049, 16995];
-
+console.log(process.env.REDIS_URL, 'process.env.REDIS_URL')
 const redis = new Redis(process.env.REDIS_URL)
 
 let mailOptions = {
