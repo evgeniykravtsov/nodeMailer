@@ -1,4 +1,3 @@
-const express = require('express');
 const nodemailer = require('nodemailer');
 const axios = require('axios');
 const cheerio = require('cheerio');
