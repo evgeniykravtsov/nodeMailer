@@ -44,7 +44,7 @@ async function main() {
     let data = await parseDevPost();
     await redis.sadd("hackathons-id-cache", cache);
 
-    await redis.get("hackathons-id-cache", function(cache, reply) {
+    await redis.smembers("hackathons-id-cache", function(err, cache) {
         console.log(cache, "<<<<<hackathons-id-cache");
       });
     
