@@ -4,11 +4,11 @@ const nodemailer = require('nodemailer');
 const axios = require('axios');
 const cheerio = require('cheerio');
 require('dotenv').config()
+import Redis from 'ioredis'
 
-// Create an instance of Express
-app = express();
+let cache = [17075, 16740, 16741, 16956, 16724, 17056, 16945, 17049, 16995];
 
-let cache = new Set([17075, 16740, 16741, 16956, 16724, 17056, 16945, 17049, 16995]);
+const redis = new Redis(process.env.REDIS_URL)
 
 let mailOptions = {
     from: process.env.USER_EMAIL,
@@ -41,10 +41,14 @@ const parseDevPost = async () => {
     return res.data
 }
 
-cron.schedule(`*/${process.env.MAIL_PERIOD} * * * *`, async() =>{
+async function main() {
     let data = await parseDevPost();
+    await redis.sadd("hackathons-id-cache", cache);
+
     data.hackathons.forEach(async ({url, id}) => {
-        if(cache.has(id)){
+        const fromCache = await redis.sismember("hackathons-id-cache", id);
+
+        if(fromCache){
             console.log('id in cache =>>>>>', id);
             console.log('url in cache =>>>>>', url);
             return;
@@ -55,16 +59,13 @@ cron.schedule(`*/${process.env.MAIL_PERIOD} * * * *`, async() =>{
 
         if(mail && typeof mail === 'string') {
             console.log('отсылаем по адресу ', mail);
-            transporter.sendMail({...mailOptions , to: mail }, (error, info) => {
-                cache.add(id);
+            transporter.sendMail({...mailOptions , to: mail }, async (error, info) => {
+                await redis.sadd("hackathons-id-cache", id);
                 if (error) console.log(error);
                 else console.log('Email sent: ' + info.response);
             })
         } else return;
-    });
+  })
 }
-);
-
-app.listen(3000, function(){
-    console.log("Server listening");
-});
+  
+main();
