@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const Redis = require("ioredis");
+var ip = require("ip");
 
 require('dotenv').config()
 
@@ -70,6 +71,7 @@ async function main() {
 //         } else return;
 //   })
 console.log('main');
+console.log(ip.address(), 'ip.address()');
 console.log(process.env , 'env');
 
 }
