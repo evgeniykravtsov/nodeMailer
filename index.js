@@ -16,7 +16,7 @@ const redis = new Redis(process.env.REDIS_URL)
 let mailOptions = {
     from: process.env.USER_EMAIL,
     to: '',
-    subject: "I wan't to be a judje",
+    subject: "I want to be a judje",
     text: `Dear Hackathon Committee,
 
 I am writing to express my interest in serving as a judge for your upcoming hackathon. As a front-end developer, I have a strong understanding of the technical skills and concepts that are relevant to the hackathon, and I believe that my background and experience make me uniquely qualified to evaluate and provide constructive feedback to the participants.
