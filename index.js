@@ -17,15 +17,7 @@ let mailOptions = {
     from: process.env.USER_EMAIL,
     to: '',
     subject: "I wan't to be a judje",
-    text: `Dear Hackathon Committee,
-
-I am writing to express my interest in serving as a judge for your upcoming hackathon. As a front-end developer, I have a strong understanding of the technical skills and concepts that are relevant to the hackathon, and I believe that my background and experience make me uniquely qualified to evaluate and provide constructive feedback to the participants.
-    
-In my current role, I have had the opportunity to work on a variety of web development projects, including designing and implementing user interfaces, developing responsive layouts, and optimizing user experience. I have also participated in several hackathons as a participant, which has given me insight into the challenges and opportunities that teams face when working on a project under time pressure.
-    
-I am excited about the opportunity to be a part of your hackathon and to help foster the development of new ideas and technologies. Thank you for considering my application.
-    
-Evgenii Kravtsov`,
+    text: process.env.USER_TEXT,
 };
 
 let transporter = nodemailer.createTransport({
