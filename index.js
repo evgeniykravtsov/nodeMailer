@@ -16,7 +16,7 @@ const redis = new Redis(process.env.REDIS_URL)
 let mailOptions = {
     from: process.env.USER_EMAIL,
     to: '',
-    subject: "I wan't to be a judje",
+    subject: process.env.USER_SUBJECT,
     text: process.env.USER_TEXT,
 };
 
